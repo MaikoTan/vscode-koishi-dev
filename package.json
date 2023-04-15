@@ -1,0 +1,57 @@
+{
+  "name": "koishi-dev",
+  "displayName": "Koishi Dev",
+  "publisher": "MaikoTan",
+  "description": "VSCode extension for Koishi developers",
+  "version": "0.0.1",
+  "license": "AGPL-3.0",
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "convert": "js-yaml package-json-schema.yaml > package-json-schema.json",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
+  },
+  "icon": "koishi.png",
+  "categories": [
+    "Snippets",
+    "Linters"
+  ],
+  "keywords": [
+    "koishi",
+    "develop",
+    "json schema",
+    "snippets"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "package.json",
+        "url": "./package-json-schema.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.77.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^2.19.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "js-yaml": "^4.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5"
+  }
+}
