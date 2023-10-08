@@ -1,6 +1,12 @@
-# Koishi Dev
+<p align="center">
+<img src="https://github.com/MaikoTan/vscode-koishi-dev/blob/master/koishi.png?raw=true" alt="logo">
+</p>
 
+<h1 align="center">Koishi Dev</h1>
+
+<p align="center">
 A VSCode extension for Koishi Development.
+</p>
 
 ## Features
 
