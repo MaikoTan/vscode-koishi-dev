@@ -22,7 +22,7 @@ jobs:
         run: yarn package
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: "*.vsix"
           retention-days: 10
