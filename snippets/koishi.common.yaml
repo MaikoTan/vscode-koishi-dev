@@ -1,0 +1,26 @@
+"Koishi plugin new command":
+  prefix: "command"
+  description: "Koishi plugin new command"
+  body:
+    - "ctx"
+    - "\t.command('$1')"
+    - "\t.action(async ({ session }) => {"
+    - "\t\treturn 'Hello from $1!'"
+    - "\t})"
+
+"Koishi plugin new middleware":
+  prefix: "middleware"
+  description: "Koishi plugin new middleware"
+  body:
+    - "ctx.middleware(async ({ session }, next) => {"
+    - "\t$1"
+    - "\treturn await next()"
+    - "})"
+
+"Koishi plugin new listener":
+  prefix: "listener"
+  description: "Koishi plugin new listener"
+  body:
+    - "ctx.on('$1', async ({ session }) => {"
+    - "\t$1"
+    - "})"
