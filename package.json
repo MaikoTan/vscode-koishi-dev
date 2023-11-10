@@ -3,13 +3,13 @@
   "displayName": "Koishi Dev",
   "publisher": "MaikoTan",
   "description": "VSCode extension for Koishi developers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "AGPL-3.0",
   "engines": {
     "vscode": "^1.77.0"
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
+    "vscode:prepublish": "yarn run compile && yarn run convert",
     "compile": "tsc -p ./",
     "convert": "js-yaml package-json-schema.yaml > package-json-schema.json",
     "watch": "tsc -watch -p ./",
@@ -17,6 +17,18 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "package": "vsce package"
+  },
+  "repository": {
+    "type": "git+https",
+    "url": "https://github.com/MaikoTan/vscode-koishi-dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MaikoTan/vscode-koishi-dev/issues"
+  },
+  "author": {
+    "name": "MaikoTan",
+    "email": "maiko.tan.coding@gmail.com",
+    "url": "https://github.com/MaikoTan"
   },
   "icon": "koishi.png",
   "categories": [
