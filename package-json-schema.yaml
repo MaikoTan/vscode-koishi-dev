@@ -12,6 +12,9 @@ properties:
       hidden:
         type: boolean
         description: Whether to hide this plugin from the Koishi Plugin Marketplace
+      preview:
+        type: boolean
+        description: Whether to show the plugin as `working in progress` in the Koishi Plugin Marketplace
       description:
         type: object
         description: The description of this plugin in different languages
