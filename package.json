@@ -11,7 +11,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile && yarn run convert",
     "compile": "tsc -p ./",
-    "convert": "js-yaml package-json-schema.yaml > package-json-schema.json",
+    "convert": "js-yaml package-json-schema.yaml > package-json-schema.json && js-yaml snippets/koishi.common.yaml > snippets/koishi.common.json",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
@@ -48,6 +48,24 @@
       {
         "fileMatch": "package.json",
         "url": "./package-json-schema.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/koishi.common.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./snippets/koishi.common.json"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./snippets/koishi.common.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/koishi.common.json"
       }
     ]
   },

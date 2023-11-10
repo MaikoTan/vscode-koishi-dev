@@ -12,3 +12,4 @@ out/
 
 # Plugin
 package-json-schema.json
+snippets/*.json
