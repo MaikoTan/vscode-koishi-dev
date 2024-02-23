@@ -11,7 +11,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile && yarn run convert",
     "compile": "tsc -p ./",
-    "convert": "js-yaml package-json-schema.yaml > package-json-schema.json && js-yaml snippets/koishi.common.yaml > snippets/koishi.common.json",
+    "convert": "js-yaml package-json.yaml > package-json.json && js-yaml snippets/koishi.common.yaml > snippets/koishi.common.json",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
@@ -47,7 +47,7 @@
     "jsonValidation": [
       {
         "fileMatch": "package.json",
-        "url": "./package-json-schema.json"
+        "url": "./package-json.json"
       }
     ],
     "snippets": [

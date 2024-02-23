@@ -11,5 +11,5 @@ out/
 # VSCode
 
 # Plugin
-package-json-schema.json
+schemata/*.json
 snippets/*.json
