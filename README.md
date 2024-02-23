@@ -13,6 +13,7 @@ A VSCode extension for Koishi Development.
 The extension is still **Work in Progress** currently.
 
 - [x] Package.json schema for "koishi" field
+- [x] YAML validation for `koishi.yml` file
 - [x] JavaScript / TypeScript code snippets
 
 ## License
