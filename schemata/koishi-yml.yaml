@@ -1,0 +1,128 @@
+---
+'$schema': 'http://json-schema.org/draft-07/schema'
+
+title: Koishi YAML Schema
+description: The schema for koishi.yml for Koishi
+type: object
+properties:
+  # #region Server Config
+  # https://github.com/cordiverse/server/blob/e687e945846a8319612cf61bb54a4b5e14d0d4a8/packages/core/src/index.ts#L177
+  host:
+    type: string
+    description: The host of the server
+  port:
+    type: integer
+    description: The port of the server
+    minimum: 0
+  maxPort:
+    type: integer
+    description: The maximum port of the server
+    minimum: 0
+  selfUrl:
+    type: string
+    description: The URL of the server
+  # #endregion
+
+  # #region Basic Config
+  # https://github.com/koishijs/koishi/blob/ff53b7569661b5f13228e6e5c6e0e57bbaf94021/packages/core/src/context.ts#L159
+  prefix:
+    type: array
+    description: The prefixes for invoking commands
+    items:
+      type: string
+  prefixMode:
+    type: string
+    description: The mode of prefix matching
+    enum:
+      - auto
+      - strict
+  nickname:
+    type: array
+    description: The nicknames for invoking commands
+    items:
+      type: string
+  autoAssign:
+    type: boolean
+    description: Whether to automatically assign current bot user as the agent of the guild
+  autoAuthorize:
+    type: integer
+    description: Whether to automatically authorize the users who is not in the database
+    minimum: 0
+  minSimilarity:
+    type: number
+    description: The minimum similarity for fuzzy matching
+    minimum: 0
+    maximum: 1
+  # #endregion
+
+  # #region Advanced Config
+  maxListeners:
+    type: integer
+    description: The maximum number of listeners, will show a warning if exceeded
+    minimum: 0
+  timezoneOffset:
+    type: integer
+    description: The timezone offset of the bot (minutes)
+  stackTraceLimit:
+    type: integer
+    description: The maximum number of stack trace lines to show in error messages
+    minimum: 0
+  # #endregion
+
+  # #region I18n Config
+  # https://github.com/koishijs/koishi/blob/ff53b7569661b5f13228e6e5c6e0e57bbaf94021/packages/core/src/i18n.ts#L205
+  i18n:
+    type: object
+    description: The i18n configuration
+    properties:
+      locales:
+        type: array
+        description: The supported locales of this bot
+        items:
+          type: string
+          description: The locale code, e.g. `zh-CN`, `en-US`
+      output:
+        type: string
+        description: The preferential locale for output
+        enum:
+          - prefer-user
+          - prefer-channel
+        enumDescriptions:
+          - Prefer the user's locale
+          - Prefer the channel's locale
+  # #endregion
+
+  # #region Delay Config
+  # https://github.com/koishijs/koishi/blob/ff53b7569661b5f13228e6e5c6e0e57bbaf94021/packages/core/src/context.ts#L173
+  delay:
+    type: object
+    description: The delay configuration
+    properties:
+      character:
+        type: integer
+        description: The delay for sending messages calculated by characters (milliseconds)
+        minimum: 0
+      message:
+        type: integer
+        description: The delay for sending messages calculated by messages (milliseconds)
+        minimum: 0
+      cancel:
+        type: integer
+        description: The delay for canceling messages (milliseconds)
+        minimum: 0
+      broadcast:
+        type: integer
+        description: The delay for broadcasting messages (milliseconds)
+        minimum: 0
+      prompt:
+        type: integer
+        description: The delay for waiting for user's response when prompted to users (milliseconds)
+        minimum: 0
+  # #endregion
+
+  # #region Plugins
+  # This is a placeholder for plugins, which can only be validated by the plugin itself
+  plugins:
+    type: object
+    description: The plugins configuration
+  # #endregion
