@@ -3,7 +3,7 @@
   "displayName": "Koishi Dev",
   "publisher": "MaikoTan",
   "description": "VSCode extension for Koishi developers",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "AGPL-3.0",
   "engines": {
     "vscode": "^1.77.0"
