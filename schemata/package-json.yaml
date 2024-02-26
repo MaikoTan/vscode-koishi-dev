@@ -1,5 +1,5 @@
 ---
-'$schema': 'http://json-schema.org/draft-07/schema'
+'$schema': 'https://json-schema.org/draft-07/schema'
 
 title: Koishi PackageJson Schema
 description: The schema for Koishi field in package.json
