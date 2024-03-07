@@ -8,7 +8,7 @@
   <a href="https://marketplace.visualstudio.com/items?itemName=MaikoTan.koishi-dev">
     <img alt="Visual Studio Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/MaikoTan.koishi-dev?include_prereleases&style=for-the-badge&logo=visualstudiocode&label=VSCode%20Marketplace">
   </a>
-  <a href="https://open-vsx.org/extension/MaikoTan/cactbot-highlight">
+  <a href="https://open-vsx.org/extension/MaikoTan/koishi-dev">
     <img alt="Open VSX Version" src="https://img.shields.io/open-vsx/v/MaikoTan/koishi-dev?style=for-the-badge&logo=vscodium&label=Open-VSX">
   </a>
 </p>
