@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import * as path from 'path'
 
 import { PathSegment, SchemaNode, ValueShape } from './types'
@@ -86,11 +87,23 @@ function branchesOf(node: SchemaNode): SchemaNode[] {
 export class SchemaIndex {
   constructor(private readonly root: SchemaNode) {}
 
-  static fromFile(file: string): SchemaIndex {
+  /**
+     * Loads a schema from a JSON file on disk.
+     *
+     * The schemata are generated from `schemata/*.yaml` by `yarn run convert` and
+     * are gitignored, so a missing file means the conversion step was skipped. Say
+     * so, rather than letting `require` fail with a bare module error.
+     */
+    static fromFile(file: string): SchemaIndex {
       const resolved = path.isAbsolute(file) ? file : path.resolve(process.cwd(), file)
+      if (!fs.existsSync(resolved)) {
+        throw new Error(
+          `Schema not found: ${resolved}\n`
+          + 'The schemata are generated from the .yaml sources. Run `yarn run convert` first.',
+        )
+      }
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const data = require(resolved) as SchemaNode
-      return new SchemaIndex(data)
+      return new SchemaIndex(require(resolved) as SchemaNode)
     }
 
   get rootSchema(): SchemaNode {
