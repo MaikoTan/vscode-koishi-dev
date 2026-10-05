@@ -4,12 +4,15 @@ package-lock.json
 
 # Build
 dist/
-out/
-*.vsix
-*.tgz
+out
 
 # VSCode
 
 # Plugin
 schemata/*.json
 snippets/*.json
+*.vsix
+*.tgz
+
+# Yarn
+.yarn/

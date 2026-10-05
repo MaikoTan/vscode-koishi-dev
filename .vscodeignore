@@ -3,7 +3,9 @@
 src/**
 .gitignore
 .yarnrc
+.yarnrc.yml
 **/tsconfig.json
 **/.eslintrc.json
+**/eslint.config.mjs
 **/*.map
 **/*.ts
