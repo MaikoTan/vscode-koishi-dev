@@ -64,10 +64,12 @@ suite('providers', () => {
     for (const subscription of subscriptions) {subscription.dispose()}
   })
 
-  test('the selector targets koishi.yml only', () => {
+  test('the selector targets koishi.yml and koishi.yaml only', () => {
     const selector = KOISHI_YML_SELECTOR as Array<Record<string, string>>
-    assert.ok(selector.some((s) => s.pattern === '**/koishi.yml'))
+    assert.ok(selector.some((s) => s.pattern === '**/koishi.{yml,yaml}'))
     assert.ok(selector.every((s) => s.language === 'yaml'))
+    // The brace pattern must not widen the match to unrelated YAML files.
+    assert.ok(selector.every((s) => !s.pattern.includes('*.yml')))
   })
 })
 

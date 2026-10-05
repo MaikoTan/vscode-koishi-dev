@@ -8,6 +8,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Added
 
+- Support `koishi.yaml` alongside `koishi.yml`. Both spellings now get schema
+  validation, completion, hover and go to definition.
 - Add field, enum and plugin name completion for `koishi.yml`. Plugin names come
   from a bundled snapshot of the official plugins merged with the plugins
   installed in the current workspace.
@@ -20,6 +22,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Fixed
 
+- Fix F5 reporting `Task '${defaultBuildTask}' not found`. VS Code no longer
+  supports that variable, so `launch.json` now names the build task directly.
+  The task is labelled `watch: compile` rather than `npm: watch`, because VS
+  Code auto-detects `package.json` scripts under that same identifier and the
+  duplicate makes F5 prompt for a task instead of running it.
+- Fix F5 failing to start the Extension Development Host on a fresh clone. The
+  `schemata/*.json` and `snippets/*.json` files are generated from their `.yaml`
+  sources and are gitignored, but the default build task only ran `tsc`, so
+  activation threw `Schema not found: .../schemata/koishi-yml.json`. The default
+  build task now runs the conversion first.
 - Compile `src/test` as part of `yarn run compile`, so `yarn test` can find the
   test files it previously never built.
 - Update the Mocha test runner for the current `glob` and `mocha` releases.

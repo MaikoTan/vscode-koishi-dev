@@ -4,10 +4,33 @@
   "version": "2.0.0",
   "tasks": [
     {
+      // The schemata/*.json and snippets/*.json files are generated from their
+      // .yaml sources and are gitignored, so a fresh clone has none of them.
+      // `yarn run watch` only runs tsc, so without this task the Extension
+      // Development Host starts with the JSON missing and activate() throws
+      // "Schema not found". Generate them before the watcher starts.
+      "label": "generate schemata",
+      "type": "npm",
+      "script": "convert",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never"
+      }
+    },
+    {
+      // Labelled explicitly so launch.json can reference it by name.
+      // VS Code dropped support for the `${defaultBuildTask}` variable, which
+      // resolves to the "Task not found" error reported when pressing F5.
+      // The label is deliberately not "npm: watch": VS Code also auto-detects
+      // package.json scripts under that exact identifier, and a duplicate
+      // identifier makes F5 prompt for a task instead of running this one.
+      "label": "watch: compile",
       "type": "npm",
       "script": "watch",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
+      "dependsOn": "generate schemata",
+      "dependsOrder": "sequence",
       "presentation": {
         "reveal": "never"
       },

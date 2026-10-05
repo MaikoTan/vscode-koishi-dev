@@ -8,8 +8,8 @@ import { KoishiDefinitionProvider } from './providers/definition'
 
 /** Documents this extension contributes language intelligence for. */
 export const KOISHI_YML_SELECTOR: vscode.DocumentSelector = [
-  { language: 'yaml', scheme: 'file', pattern: '**/koishi.yml' },
-  { language: 'yaml', scheme: 'untitled', pattern: '**/koishi.yml' },
+  { language: 'yaml', scheme: 'file', pattern: '**/koishi.{yml,yaml}' },
+  { language: 'yaml', scheme: 'untitled', pattern: '**/koishi.{yml,yaml}' },
 ]
 
 export function activate(context: vscode.ExtensionContext): void {
