@@ -8,6 +8,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Added
 
+- Support `koishi.yaml` alongside `koishi.yml`. Both spellings now get schema
+  validation, completion, hover and go to definition.
 - Add field, enum and plugin name completion for `koishi.yml`. Plugin names come
   from a bundled snapshot of the official plugins merged with the plugins
   installed in the current workspace.

@@ -57,7 +57,7 @@
     ],
     "yamlValidation": [
       {
-        "fileMatch": "koishi.yml",
+        "fileMatch": "koishi.{yml,yaml}",
         "url": "./schemata/koishi-yml.json"
       }
     ],
