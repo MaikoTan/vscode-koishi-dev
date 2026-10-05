@@ -14,38 +14,33 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Check current version
         id: check_version
-        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
-
-      - name: Check remote tags
-        id: check_tags
-        run: |
-          git fetch --tags
-          echo ::set-output name=TAGS::$(git tag -l)
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Check if tag exists
         id: check_tag
         run: |
-          if [[ "${{ steps.check_tags.outputs.TAGS }}" == *"${{ steps.check_version.outputs.VERSION }}"* ]]; then
-            echo ::set-output name=TAG_EXISTS::true
+          if git tag -l "v${VERSION}" | grep -q .; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
           else
-            echo ::set-output name=TAG_EXISTS::false
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
+        env:
+          VERSION: ${{ steps.check_version.outputs.version }}
 
-      - name: Create tag
-        id: create_tag
-        if: ${{ github.ref == 'refs/heads/master' && steps.check_tag.outputs.TAG_EXISTS == 'false' }}
-        run: echo ::set-output name=TAG::v${{ steps.check_version.outputs.VERSION }}
-
-      - name: Push tag
-        if: ${{ github.ref == 'refs/heads/master' && steps.check_tag.outputs.TAG_EXISTS == 'false' }}
+      - name: Create and push tag
+        if: ${{ steps.check_tag.outputs.exists == 'false' }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git tag ${{ steps.create_tag.outputs.TAG }}
-          git push origin ${{ steps.create_tag.outputs.TAG }}
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+        env:
+          VERSION: ${{ steps.check_version.outputs.version }}
