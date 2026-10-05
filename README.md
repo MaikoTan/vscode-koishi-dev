@@ -23,7 +23,27 @@ The extension is still **Work in Progress** currently.
 
 - [x] Package.json schema for "koishi" field
 - [x] YAML validation for `koishi.yml` file
+- [x] Field, enum and plugin name completion in `koishi.yml`
+- [x] Hover documentation for config fields and plugins
+- [x] Go to definition from a plugin name to its `package.json`
 - [x] JavaScript / TypeScript code snippets
+
+### `koishi.yml` IntelliSense
+
+Beyond structural validation, the extension provides language features for
+`koishi.yml`:
+
+- **Completion** — field names at the current level, enum values on the value
+  side of a field (`prefixMode`, `i18n.output`), and plugin names inside the
+  `plugins` block.
+- **Plugin names** — a bundled snapshot of the official plugins is merged with
+  whatever is installed in your workspace, so third-party plugins appear too.
+  Hovering shows the npm package name and the services a plugin provides or
+  requires.
+- **Hover** — the description, type, allowed values and numeric constraints
+  declared in the schema.
+- **Go to definition** — from a plugin name to that package's `package.json` in
+  `node_modules`.
 
 ## License
 

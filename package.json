@@ -15,7 +15,7 @@
     "convert": "tsx ./scripts/convert.ts",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src",
-    "test": "yarn run compile && yarn run lint && node ./out/test/runTest.js",
+    "test": "yarn run compile && yarn run convert && yarn run lint && node ./out/test/runTest.js",
     "package": "vsce package --no-yarn"
   },
   "repository": {
@@ -33,15 +33,20 @@
   "icon": "koishi.png",
   "categories": [
     "Snippets",
-    "Linters"
+    "Linters",
+    "Programming Languages"
   ],
   "keywords": [
     "koishi",
     "develop",
     "json schema",
-    "snippets"
+    "snippets",
+    "yaml",
+    "completion"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:yaml"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "jsonValidation": [
@@ -74,6 +79,9 @@
         "path": "./snippets/koishi.common.json"
       }
     ]
+  },
+  "dependencies": {
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

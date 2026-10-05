@@ -11,10 +11,11 @@ export async function run(): Promise<void> {
 
   const testsRoot = path.resolve(__dirname, '..')
 
-  // Add files to the test suite
-  globSync('**/**.test.js', { cwd: testsRoot }).forEach((f) =>
-    mocha.addFile(path.resolve(testsRoot, f)),
-  )
+  // Add files to the test suite, sorted so run order does not depend on the
+  // order the filesystem happens to report.
+  globSync('**/**.test.js', { cwd: testsRoot })
+    .sort()
+    .forEach((f) => mocha.addFile(path.resolve(testsRoot, f)))
 
   // Run the mocha test
   const failures = await new Promise<number>((c, e) => {
