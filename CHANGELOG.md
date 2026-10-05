@@ -20,6 +20,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Fixed
 
+- Fix F5 reporting `Task '${defaultBuildTask}' not found`. VS Code no longer
+  supports that variable, so `launch.json` now names the build task directly.
+  The task is labelled `watch: compile` rather than `npm: watch`, because VS
+  Code auto-detects `package.json` scripts under that same identifier and the
+  duplicate makes F5 prompt for a task instead of running it.
 - Fix F5 failing to start the Extension Development Host on a fresh clone. The
   `schemata/*.json` and `snippets/*.json` files are generated from their `.yaml`
   sources and are gitignored, but the default build task only ran `tsc`, so

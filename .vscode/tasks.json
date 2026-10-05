@@ -18,6 +18,13 @@
       }
     },
     {
+      // Labelled explicitly so launch.json can reference it by name.
+      // VS Code dropped support for the `${defaultBuildTask}` variable, which
+      // resolves to the "Task not found" error reported when pressing F5.
+      // The label is deliberately not "npm: watch": VS Code also auto-detects
+      // package.json scripts under that exact identifier, and a duplicate
+      // identifier makes F5 prompt for a task instead of running this one.
+      "label": "watch: compile",
       "type": "npm",
       "script": "watch",
       "problemMatcher": "$tsc-watch",
