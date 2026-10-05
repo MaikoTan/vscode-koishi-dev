@@ -6,6 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.0.5] - 2026-10-05
+
 ### Added
 
 - Support `koishi.yaml` alongside `koishi.yml`. Both spellings now get schema
@@ -61,6 +63,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Initial release
 - Add validation of the `koishi` field to `package.json` ([`74e1bdc`](https://github.com/MaikoTan/vscode-koishi-dev/commit/74e1bdcfea9db7dc23d82c36fb7d314536747478))
 
+[0.0.5]: https://github.com/MaikoTan/vscode-koishi-dev/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/MaikoTan/vscode-koishi-dev/compare/0.0.3..v0.0.4
 [0.0.3]: https://github.com/MaikoTan/vscode-koishi-dev/compare/0.0.2..0.0.3
 [0.0.2]: https://github.com/MaikoTan/vscode-koishi-dev/compare/0.0.1..0.0.2
