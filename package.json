@@ -14,9 +14,8 @@
     "compile": "tsc -p ./",
     "convert": "tsx ./scripts/convert.ts",
     "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src",
-    "test": "node ./out/test/runTest.js",
+    "test": "yarn run compile && yarn run lint && node ./out/test/runTest.js",
     "package": "vsce package --no-yarn"
   },
   "repository": {
