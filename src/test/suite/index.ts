@@ -1,8 +1,9 @@
 import * as path from 'path'
 import * as Mocha from 'mocha'
-import { glob } from 'glob'
+import { globSync } from 'glob'
 
 export async function run(): Promise<void> {
+  // Create the mocha test
   const mocha = new Mocha({
     ui: 'tdd',
     color: true,
@@ -10,18 +11,23 @@ export async function run(): Promise<void> {
 
   const testsRoot = path.resolve(__dirname, '..')
 
-  const files = await glob('**/**.test.js', { cwd: testsRoot })
-  for (const file of files.sort()) {
-    mocha.addFile(path.resolve(testsRoot, file))
-  }
+  // Add files to the test suite, sorted so run order does not depend on the
+  // order the filesystem happens to report.
+  globSync('**/**.test.js', { cwd: testsRoot })
+    .sort()
+    .forEach((f) => mocha.addFile(path.resolve(testsRoot, f)))
 
-  const failures = await new Promise<number>((resolve, reject) => {
+  // Run the mocha test
+  const failures = await new Promise<number>((c, e) => {
     try {
-      mocha.run(resolve)
-    } catch (error) {
-      reject(error instanceof Error ? error : new Error(String(error)))
+      mocha.run(c)
+    } catch (err) {
+      console.error(err)
+      e(err)
     }
   })
 
-  if (failures > 0) {throw new Error(`${failures} tests failed.`)}
+  if (failures > 0) {
+    throw new Error(`${failures} tests failed.`)
+  }
 }
