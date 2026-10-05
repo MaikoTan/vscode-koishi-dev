@@ -4,10 +4,26 @@
   "version": "2.0.0",
   "tasks": [
     {
+      // The schemata/*.json and snippets/*.json files are generated from their
+      // .yaml sources and are gitignored, so a fresh clone has none of them.
+      // `yarn run watch` only runs tsc, so without this task the Extension
+      // Development Host starts with the JSON missing and activate() throws
+      // "Schema not found". Generate them before the watcher starts.
+      "label": "generate schemata",
+      "type": "npm",
+      "script": "convert",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never"
+      }
+    },
+    {
       "type": "npm",
       "script": "watch",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
+      "dependsOn": "generate schemata",
+      "dependsOrder": "sequence",
       "presentation": {
         "reveal": "never"
       },

@@ -20,6 +20,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Fixed
 
+- Fix F5 failing to start the Extension Development Host on a fresh clone. The
+  `schemata/*.json` and `snippets/*.json` files are generated from their `.yaml`
+  sources and are gitignored, but the default build task only ran `tsc`, so
+  activation threw `Schema not found: .../schemata/koishi-yml.json`. The default
+  build task now runs the conversion first.
 - Compile `src/test` as part of `yarn run compile`, so `yarn test` can find the
   test files it previously never built.
 - Update the Mocha test runner for the current `glob` and `mocha` releases.
