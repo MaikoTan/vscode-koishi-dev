@@ -4,6 +4,26 @@ All notable changes to the "koishi-dev" extension will be documented in this fil
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+### Added
+
+- Add field, enum and plugin name completion for `koishi.yml`. Plugin names come
+  from a bundled snapshot of the official plugins merged with the plugins
+  installed in the current workspace.
+- Add hover documentation for `koishi.yml` config fields, showing the schema
+  description, type, allowed values and constraints.
+- Add hover for plugin entries in the `plugins` block, mapping a config name to
+  its npm package and declared services.
+- Add go to definition from a plugin name to the installed package's
+  `package.json`.
+
+### Fixed
+
+- Compile `src/test` as part of `yarn run compile`, so `yarn test` can find the
+  test files it previously never built.
+- Update the Mocha test runner for the current `glob` and `mocha` releases.
+
 ## [0.0.4] - 2024-02-23
 
 ### Added

@@ -4,12 +4,26 @@
 这是一个为 Koishi 开发者提供支持的 VSCode 扩展，主要功能包括：
 - `package.json` 中 `koishi` 字段的 JSON Schema 验证
 - `koishi.yml` 配置文件的 YAML Schema 验证
+- `koishi.yml` 的智能补全（字段 / 枚举 / 插件名）、悬停文档、跳转定义
 - TypeScript/JavaScript 代码片段
 
 ## 目录结构
 ```
 ├── src/
-│   ├── extension.ts          # 扩展入口（当前为空）
+│   ├── extension.ts          # 扩展入口，注册各类语言功能 Provider
+│   ├── schema/               # JSON Schema 索引：按配置路径解析 schema
+│   │   ├── types.ts          # SchemaNode / PathSegment 类型定义
+│   │   └── index.ts          # SchemaIndex：路径解析、属性枚举、枚举值提取
+│   ├── yaml/
+│   │   └── document.ts       # koishi.yml 解析，光标偏移量 → 配置路径
+│   ├── plugins/
+│   │   ├── registry.ts       # 内置官方插件清单 + 包名 → 配置名转换
+│   │   └── resolver.ts       # 扫描工作区 node_modules 合并已安装插件
+│   ├── providers/
+│   │   ├── completion.ts     # 补全：字段 / 枚举 / 插件名
+│   │   ├── hover.ts          # 悬停：schema 文档 + 插件包信息
+│   │   ├── definition.ts     # 跳转定义：插件名 → package.json
+│   │   └── roots.ts          # 定位工作区目录
 │   └── test/                 # 测试文件
 ├── schemata/
 │   ├── koishi-yml.yaml       # koishi.yml 的 YAML Schema 定义
@@ -26,6 +40,26 @@
 ├── tsconfig.json             # TypeScript 配置
 └── README.md                 # 文档
 ```
+
+## 智能补全架构
+
+三个 Provider 共享同一套「光标位置 → 配置路径」解析：
+
+```
+KoishiYamlDocument.cursorAt(offset) → { path, parentPath, onKey, word }
+                                    ↓
+                    SchemaIndex 按 path 查询 schema
+```
+
+- `path` — 光标所在的配置路径。光标在**键**上时是该键自身的路径；在**值**上是该值的路径。
+- `parentPath` — 光标所在的最内层映射，即「新键可以出现」的层级。
+- `onKey` — 区分光标在键上还是值上，决定补全给字段名还是枚举值。
+
+注意事项：
+- YAML 解析器无法表达「正在输入但尚未成键」的内容。`plugins:\n  ada` 中的 `ada`
+  会被解析成 `plugins` 的标量值，因此 `cursorAt` 用缩进作为兜底信号来判断键位置。
+- 空值槽（`prefixMode: |`）必须判定为值位置，否则枚举补全无法触发。
+- 每次请求都会重新解析文档。配置文件规模下开销可忽略，也无需自行跟踪外部编辑。
 
 ## 核心工作流
 
@@ -60,6 +94,15 @@ yarn run package            # 生成 .vsix 包
 ## 技术栈
 - TypeScript 4.9+
 - VSCode Extension API
-- js-yaml (YAML 解析)
+- yaml (YAML 解析，带 offset 的 AST)
+- js-yaml (仅构建期 `scripts/convert.ts` 使用)
 - vsce (打包工具)
 - ESLint + TypeScript ESLint
+
+## 测试
+```bash
+yarn run pretest    # compile + lint
+yarn test           # 启动 VSCode 实例运行 mocha 测试
+```
+测试分为三层：`schema.test.ts`（纯逻辑）、`plugins.test.ts`（纯逻辑 + 临时目录）、
+`providers.test.ts`（在真实 VSCode 中调用各 Provider）。
