@@ -4,6 +4,7 @@ src/**
 .gitignore
 .yarnrc
 .yarnrc.yml
+.yarn/**
 **/tsconfig.json
 **/.eslintrc.json
 **/eslint.config.mjs
