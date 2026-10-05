@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES2022",
-	"moduleResolution": "Node",
+    "target": "ES2024",
+    "moduleResolution": "node",
     "outDir": "out",
-    "lib": ["ES2022"],
+    "lib": ["ES2024"],
     "sourceMap": true,
     "rootDir": "src",
-	"allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/test/**/*"]
+  "exclude": ["src/test/**/*", "out/**/*", "scripts/**/*"]
 }
