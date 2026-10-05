@@ -6,7 +6,7 @@
   "version": "0.0.4",
   "license": "AGPL-3.0",
   "engines": {
-    "vscode": "^1.77.0"
+    "vscode": "^1.140.0"
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile && yarn run convert",
